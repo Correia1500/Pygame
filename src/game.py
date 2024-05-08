@@ -14,11 +14,11 @@ pygame.display.set_caption("Pygame")
 
 # Inicia assets
 
-plataform_img = pygame.image.load("assets/plataforma.png")
+plataform_img = pygame.image.load("assets/img/plataforma.png")
 plataform_img = pygame.transform.scale(plataform_img, (WIDTH, 100))
-player_img = pygame.image.load("assets/quadrado.png")
+player_img = pygame.image.load("assets/img/quadrado.png")
 player_img = pygame.transform.scale(player_img, (50, 50))
-obstaculo_img = pygame.image.load("assets/obstaculo.png")
+obstaculo_img = pygame.image.load("assets/img/obstaculo.png")
 obstaculo_img = pygame.transform.scale(obstaculo_img, (50, 50))
 
 ## ----- Inicia estruturas de dados
