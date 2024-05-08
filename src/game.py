@@ -32,17 +32,31 @@ class Player(pygame.sprite.Sprite):
         self.rect.centerx = WIDTH/2
         self.rect.bottom = HEIGHT - 100
         self.speedx = 0
+        self.speedy = 0
+        self.on_ground = True # verifica se o jogador está no chão
     
     def update(self):
         # Atualiza a posição do jogador
         self.rect.x += self.speedx
+        
+        # aplica a gravidade se não estiver no chão
+        if not self.on_ground:
+            self.speedy += 1
 
-        # Mantem dentro da tela
+        self.rect.y += self.speedy
+
+        # Checa se o jogador está no chão
+        if self.rect.bottom >= HEIGHT - 100:
+            self.rect.bottom = HEIGHT - 100
+            self.on_ground = True
+            self.speedy = 0
+
+
+        # Mantem dentro da tela horizontalmente
         if self.rect.right > WIDTH:
             self.rect.right = WIDTH
         if self.rect.left < 0: 
             self.rect.left = 0
-
 
 game = True
 
@@ -73,10 +87,14 @@ while game:
         #Verifica se apertou alguma tecla
         if event.type ==pygame.KEYDOWN:
             #Dependendo da tecla, altera a velocidade
-            if event.key == pygame.K_LEFT:
+            if event.key == pygame.K_LEFT: #se a tecla for a seta para a esquerda
                 player.speedx -= 8
-            if event.key == pygame.K_RIGHT:
+            if event.key == pygame.K_RIGHT:#se a tecla for a seta para a direita
                 player.speedx += 8
+            if event.key == pygame.K_SPACE and player.on_ground:#se a tecla for a seta para cima
+                player.speedy = -20 #pula
+                player.on_ground = False
+                
         # verifica se soltou alguma tecla
         if event.type == pygame.KEYUP:
             # Dependendo da tecla, altera a velocidade
@@ -86,7 +104,7 @@ while game:
                 player.speedx -= 8 
 
     #atualiza estado do jogo
-         
+
     #atualiza a posição do jogador
     all_sprites.update()
 
