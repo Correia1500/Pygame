@@ -18,6 +18,8 @@ plataform_img = pygame.image.load("assets/plataforma.png")
 plataform_img = pygame.transform.scale(plataform_img, (WIDTH, 100))
 player_img = pygame.image.load("assets/quadrado.png")
 player_img = pygame.transform.scale(player_img, (50, 50))
+obstaculo_img = pygame.image.load("assets/obstaculo.png")
+obstaculo_img = pygame.transform.scale(obstaculo_img, (50, 50))
 
 ## ----- Inicia estruturas de dados
 # Definindo os novos tipos
@@ -58,6 +60,23 @@ class Player(pygame.sprite.Sprite):
         if self.rect.left < 0: 
             self.rect.left = 0
 
+class Obstaculo(pygame.sprite.Sprite):
+    def __init__(self,img):
+        # Construtor da classe mãe
+        pygame.sprite.Sprite.__init__(self)
+
+        self.image = img
+        self.rect = self.image.get_rect()
+        self.rect.x = WIDTH
+        self.rect.y = HEIGHT - 150
+        self.speedx = -10
+
+    def update(self):
+        self.rect.x += self.speedx
+
+        if self.rect.right < 0:
+            self.rect.left = WIDTH
+
 game = True
 
 # variavel para ajustar a velocidade do jogo
@@ -66,9 +85,13 @@ FPS = 30
 
 #cria um grupo de sprites e adiciona o jogador
 all_sprites = pygame.sprite.Group()
+all_obstaculos = pygame.sprite.Group()
 
 player = Player(player_img)
 all_sprites.add(player)
+obstaculo = Obstaculo(obstaculo_img)
+all_obstaculos.add(obstaculo)
+all_sprites.add(obstaculo) #para desenhar o obstaculo na tela
 
 # for i in range(10):
 #     #player = Player(player)
@@ -107,6 +130,11 @@ while game:
 
     #atualiza a posição do jogador
     all_sprites.update()
+
+    #verifica se houve colisão entre o jogador e o obstaculo
+    colisao = pygame.sprite.spritecollide(player, all_obstaculos, True)
+    if len(colisao) > 0:
+        game = False
 
 
     #gera saidas
