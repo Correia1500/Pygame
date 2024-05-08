@@ -1,0 +1,19 @@
+CRIAR O REPOSITORIO:
+
+git clone https://github.com/Correia1500/Pygame---Scavenger-Sprint.git
+
+CRIA SUA BRANCH:
+
+git checkout -b Nome-da-sua-branch
+
+ATUALIZAR SEU CODIGO:
+
+git pull origin main
+
+ENVIAR ARQUIVOS:
+
+git add .
+git status 
+git commit "nome-do-commit"
+git push origin Nome-da-sua-branch
+
