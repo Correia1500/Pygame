@@ -129,7 +129,6 @@ while game:
     if len(colisao2) > 0:
     # Toca o som da colisão
         collide_sound.play()
-        time.sleep(1) # Precisa esperar senão fecha
         game = False
 
     # for zumbie in obstaculo: 
