@@ -21,6 +21,16 @@ player_img = pygame.transform.scale(player_img, (50, 50))
 obstaculo_img = pygame.image.load("assets/obstaculo.png")
 obstaculo_img = pygame.transform.scale(obstaculo_img, (50, 50))
 
+
+# tela de abertura
+font = pygame.font.SysFont(None, 50)
+conteudo2 = "Zombie Run Press the space key to start."
+t3 = font.render(conteudo2[:11], True, (0, 0, 230))
+t4 = font.render(conteudo2[11:], True, (0, 0, 230))
+
+window.fill((200, 150, 100))
+window.blit(t3,(500,400))
+window.blit(t4,(300,400))
 ## ----- Inicia estruturas de dados
 # Definindo os novos tipos
 
@@ -79,6 +89,12 @@ class Obstaculo(pygame.sprite.Sprite):
 
 game = True
 
+#Tela game over
+
+font = pygame.font.SysFont(None, 50)
+conteudo = "You lost! Game Over."
+t1 = font.render(conteudo[:10], True, (0, 0, 230))
+t2 = font.render(conteudo[10:], True, (0, 0, 230))
 # variavel para ajustar a velocidade do jogo
 clock = pygame.time.Clock()
 FPS = 30
@@ -106,6 +122,7 @@ while game:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game = False
+
 
         #Verifica se apertou alguma tecla
         if event.type ==pygame.KEYDOWN:
@@ -144,6 +161,15 @@ while game:
 
     #atualiza a tela
     pygame.display.update()
+
+    #quando vc perder
+    window.fill((0, 0, 0))
+    window.blit(t1,(500,400))
+    window.blit(t2,(300,400))
+
+
+
+
 
 #Finaliza o pygame
 pygame.quit()
