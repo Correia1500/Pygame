@@ -14,7 +14,8 @@ class Zombie(pygame.sprite.Sprite):
         self.current_sprite = 0
         self.image = self.sprites[self.current_sprite]
         self.rect = self.image.get_rect()
-        self.animation_speed = 0.2
+        self.speedy = 0
+       # self.animation_speed = 0.2
 
         
         #self.rect.x = random.randint(0, WIDTH - ZOMBIE_WIDTH)
@@ -25,6 +26,7 @@ class Zombie(pygame.sprite.Sprite):
         #self.rect.x = WIDTH
         #
         self.rect.y = HEIGHT - 195
+        self.on_ground = True
         #self.speedx = -10
 
     def update(self):
@@ -35,14 +37,14 @@ class Zombie(pygame.sprite.Sprite):
         if self.rect.right < 0:
             self.rect.left = WIDTH
             self.rect.x = random.randint(0, WIDTH - ZOMBIE_WIDTH)
-            self.speedx = random.randint(-3, -10)
+            self.speedx = random.randint(-3, -5)
 
-        if not self.on_ground:
-            self.speedy += 1
-        self.rect.y += self.speedy
+        # if not self.on_ground:
+        #     self.speedy += 1
+        # self.rect.y += self.speedy
 
-        # Checa se o jogador está no chão
-        if self.rect.bottom >= HEIGHT - 195:
-            self.rect.bottom = HEIGHT - 195
-            self.on_ground = True
-            self.speedy = 0
+        # # Checa se o jogador está no chão
+        # if self.rect.bottom >= HEIGHT - 195:
+        #     self.rect.bottom = HEIGHT - 195
+        #     self.on_ground = True
+        #     self.speedy = 0

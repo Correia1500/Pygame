@@ -119,19 +119,18 @@ while game:
     all_sprites.update()
 
     #verifica se houve colisão entre o jogador e o obstaculo
-#     colisao = pygame.sprite.spritecollide(all_zombies, all_beers, True, True)
-#     if len(colisao) > 0:
-#         # Toca o som da colisão
-#         collide_sound.play()
-#         colisao==0
+    colisao = pygame.sprite.groupcollide(all_zombies, all_beers, True, True)
+    if len(colisao) > 0:
+        # Toca o som da colisão
+        collide_sound.play()
+        colisao==0
 
-# colisao2 = pygame.sprite.spritecollide(player, all_zombies, True)
-# if len(colisao2) > 0:
-#     # Toca o som da colisão
-#     collide_sound.play()
-#     time.sleep(1) # Precisa esperar senão fecha
-
-#    game = False
+    colisao2 = pygame.sprite.spritecollide(player, all_zombies, True)
+    if len(colisao2) > 0:
+    # Toca o som da colisão
+        collide_sound.play()
+        time.sleep(1) # Precisa esperar senão fecha
+        game = False
 
     # for zumbie in obstaculo: 
     #     z = Zumbie(zumbie_img)
