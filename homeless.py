@@ -23,7 +23,7 @@ class Homeless(pygame.sprite.Sprite):
         self.pulando = False
 
     def animate(self):
-        self.current_sprite += self.animation_speed
+        self.current_sprite = self.animation_speed
         if self.current_sprite >= len(self.sprites):
             self.current_sprite = 0
         self.image = self.sprites[int(self.current_sprite)]
