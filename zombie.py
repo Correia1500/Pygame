@@ -36,3 +36,13 @@ class Zombie(pygame.sprite.Sprite):
             self.rect.left = WIDTH
             self.rect.x = random.randint(0, WIDTH - ZOMBIE_WIDTH)
             self.speedx = random.randint(-3, -10)
+
+        if not self.on_ground:
+            self.speedy += 1
+        self.rect.y += self.speedy
+
+        # Checa se o jogador está no chão
+        if self.rect.bottom >= HEIGHT - 195:
+            self.rect.bottom = HEIGHT - 195
+            self.on_ground = True
+            self.speedy = 0
