@@ -19,3 +19,11 @@ git status
 git commit -m "nome-do-commit"
 git push origin Nome-da-sua-branch
 
+CRIAR PULL REQUEST:
+
+Acesse o github e clique em "compare & pull request" e depois em "create pull request"
+
+OBS: sempre que for enviar arquivos, atualize seu codigo antes de enviar, para evitar conflitos.
+
+
+
