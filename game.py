@@ -47,6 +47,7 @@ zombie_img = pygame.image.load("assets/img/meteorBrown_med1.png").convert_alpha(
 zombie_img = pygame.transform.scale(zombie_img, (ZOMBIE_WIDTH, ZOMBIE_HEIGHT))
 
 beer_img = pygame.image.load("assets/img/laserRed16.png").convert_alpha()
+beer_img = pygame.transform.scale(beer_img, (20, 20))
 
 # Carrega os sons do jogo
 pygame.mixer.music.load("assets/snd/tgfcoder-FrozenJam-SeamlessLoop.ogg") #musica de fundo
