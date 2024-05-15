@@ -1,6 +1,7 @@
 import pygame
 import random
 import time
+import sys
 
 pygame.init()
 pygame.mixer.init()
@@ -12,13 +13,15 @@ HEIGHT = 600
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Pygame")
 
-
-
+# Carrega a spritesheet
+spritesheet = pygame.image.load("assets/img/run.png").convert_alpha()
 # ----- Inicia assets
 ZOMBIE_WIDTH = 50
 ZOMBIE_HEIGHT = 50
 HOMELESS_WIDTH = 50
 HOMELESS_HEIGHT = 50
+
+font = pygame.font.SysFont(None, 48)
 background_img = pygame.image.load("assets/img/starfield.png").convert()
 
 plataform_img = pygame.image.load("assets/img/plataforma.png")
@@ -42,9 +45,17 @@ collide_sound = pygame.mixer.Sound("assets/snd/expl6.wav") #som da colisão
 
 ## ----- Inicia estruturas de dados
 # Definindo os novos tipos
+def load_sprites(spritesheet, num_sprites, sprite_width, sprite_height):
+    sprites = []
+    for i in range(num_sprites):
+        # Calcula a posição x do sprite na spritesheet
+        x = i * sprite_width
+        sprite = spritesheet.subsurface(pygame.Rect(x, 0, sprite_width, sprite_height))
+        sprites.append(sprite)
+    return sprites
 
 class Homeless(pygame.sprite.Sprite):
-    def __init__(self,img,all_sprites,all_beers, beer_img, pew_sound):
+    def __init__(self,img,all_sprites,all_beers, beer_img, pew_sound, sprites):
         # Construtor da classe mãe
         pygame.sprite.Sprite.__init__(self)
 
@@ -59,6 +70,17 @@ class Homeless(pygame.sprite.Sprite):
         self.all_beers = all_beers
         self.beer_img = beer_img
         self.pew_sound = pew_sound 
+        self.sprites = sprites
+        self.current_sprite = 0
+        self.image = sprites[self.current_sprite]
+        self.rect = self.image.get_rect()
+        self.animation_speed = 0.2
+
+        def animate(self):
+            self.current_sprite += self.animation_speed
+            if self.current_sprite >= len(self.sprites):
+                self.current_sprite = 0
+            self.image = self.sprites[int(self.current_sprite)]
     
     def update(self):
         # Atualiza a posição do jogador
@@ -80,6 +102,8 @@ class Homeless(pygame.sprite.Sprite):
             self.rect.right = WIDTH
         if self.rect.left < 0: 
             self.rect.left = 0
+
+        self.animate()
         
     def shoot(self):
         #cria um novo tiro, a partir da posição do jogador
@@ -124,7 +148,7 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.bottom = bottom
         self.rect.centerx = centerx
         self.speedx = 10 # Velocidade fixa para o lado direito
-    def updade(self):
+    def update(self):
         # A bala só se move no eixo x
         self.rect.x += self.speedx
 
@@ -132,7 +156,8 @@ class Bullet(pygame.sprite.Sprite):
         if self.rect.left > WIDTH:
             self.kill()
 game = True
-
+# Define o número de frames e suas dimensões
+num_sprites = 8
 # variavel para ajustar a velocidade do jogo
 clock = pygame.time.Clock()
 FPS = 30
@@ -163,7 +188,7 @@ for i in range(10):
 #     all_sprites.add(player)
 
 # ===== Loop principal =====
-
+player = Homeless(sprites)
 pygame.mixer.music.play(loops=-1) #inicia a musica de fundo
 while game:
     clock.tick(FPS)
