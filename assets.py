@@ -3,8 +3,10 @@ import pygame
 # Definindo os novos tipos
 def load_sprites_homeless():
 
+
     spritesheet = pygame.image.load("assets/img/run_homeless.png").convert_alpha()
     sprite_width, sprite_height= spritesheet.get_width() // 8, spritesheet.get_height()
+
 
 
     sprites = []
