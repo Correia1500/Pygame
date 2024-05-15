@@ -6,6 +6,7 @@ from config import *
 from assets import *
 from homeless import *
 from bullet import *
+from zombie import *
 
 pygame.init()
 pygame.mixer.init()
@@ -46,6 +47,7 @@ zombie_img = pygame.image.load("assets/img/meteorBrown_med1.png").convert_alpha(
 zombie_img = pygame.transform.scale(zombie_img, (ZOMBIE_WIDTH, ZOMBIE_HEIGHT))
 
 beer_img = pygame.image.load("assets/img/laserRed16.png").convert_alpha()
+beer_img = pygame.transform.scale(beer_img, (20, 20))
 
 # Carrega os sons do jogo
 pygame.mixer.music.load("assets/snd/tgfcoder-FrozenJam-SeamlessLoop.ogg") #musica de fundo
@@ -57,31 +59,6 @@ collide_sound = pygame.mixer.Sound("assets/snd/expl6.wav") #som da colisão
 
 ## ----- Inicia estruturas de dados
 
-
-class Zombie(pygame.sprite.Sprite):
-    def __init__(self,img):
-        # Construtor da classe mãe
-        pygame.sprite.Sprite.__init__(self)
-
-        self.image = img
-        self.rect = self.image.get_rect()
-        self.rect.x = random.randint(0, WIDTH - ZOMBIE_WIDTH)
-        #self.rect.y = random.randint(-100, -ZOMBIE_HEIGHT)
-        self.speedx = random.randint(3, 10)
-        #self.rect.x = WIDTH
-        #
-        self.rect.y = HEIGHT - 150
-        #self.speedx = -10
-
-    def update(self):
-        # Atualiza a posição do zombie
-        self.rect.x += self.speedx
-        # Se o zombie passar do final da tela, volta para cima e sorteia uma nova posição
-        # novas posições e velocidades
-        if self.rect.right < 0:
-            self.rect.left = WIDTH
-            self.rect.x = random.randint(0, WIDTH - ZOMBIE_WIDTH)
-            self.speedx = random.randint(-3, -10)
 
 game = True
 #conflito------------
@@ -105,6 +82,7 @@ all_zombies = pygame.sprite.Group()
 # Criando o jogador
 sprites = load_sprites_homeless()
 # Criando os zumbies
+
 for i in range(10):
     z = Zombie(zombie_img)
     all_sprites.add(z)
@@ -190,8 +168,8 @@ while game:
 
     #quando vc perder
     window.fill((0, 0, 0))
-    window.blit(t1,(500,400))
-    window.blit(t2,(300,400))
+    #window.blit(t1,(500,400))
+    #window.blit(t2,(300,400))
 
 
 
@@ -199,3 +177,4 @@ while game:
 
 #Finaliza o pygame
 pygame.quit()
+sys.exit()
