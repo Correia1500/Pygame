@@ -38,7 +38,6 @@ pygame.mixer.music.set_volume(0.4)
 pew_sound = pygame.mixer.Sound("assets/snd/pew.wav") #som do tiro
 collide_sound = pygame.mixer.Sound("assets/snd/expl6.wav") #som da colisão
 
-#jump_sound = pygame.mixer.Sound("assets/snd/jump.wav") #som do pulo
 
 ## ----- Inicia estruturas de dados
 
@@ -70,7 +69,7 @@ class Zombie(pygame.sprite.Sprite):
 
 game = True
 # Define o número de frames e suas dimensões
-# variavel para ajustar a velocidade do jogo
+
 clock = pygame.time.Clock()
 FPS = 30
 # Criando um grupo de beers
@@ -84,19 +83,7 @@ for i in range(10):
     z = Zombie(zombie_img)
     all_sprites.add(z)
     all_zombies.add(z)
-#cria um grupo de sprites e adiciona o jogador
-# all_sprites = pygame.sprite.Group()
-# all_obstaculos = pygame.sprite.Group()
 
-# player = Player(player_img)
-# all_sprites.add(player)
-# obstaculo = Obstaculo(obstaculo_img)
-# all_obstaculos.add(obstaculo)
-# all_sprites.add(obstaculo) #para desenhar o obstaculo na tela
-
-# for i in range(10):
-#     #player = Player(player)
-#     all_sprites.add(player)
 
 # ===== Loop principal =====
 player = Homeless(all_sprites, all_beers, beer_img, pew_sound)
@@ -164,3 +151,4 @@ while game:
 
 #Finaliza o pygame
 pygame.quit()
+sys.exit()
