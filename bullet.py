@@ -9,11 +9,11 @@ class Bullet(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = img
         self.rect = self.image.get_rect()
-        self.rect.bottom = HEIGHT - 130
+    
         # Coloca no lugar inicial definido em x, y do constutor
-        #self.rect.bottom = bottom
+        self.rect.bottom = bottom
         self.rect.centerx = centerx
-        self.speedx = -10 # Velocidade fixa para o lado direito
+        self.speedx = -10 # Velocidade fixa para o lado esquerdo
     def update(self):
         # A bala só se move no eixo x
         self.rect.x += self.speedx
