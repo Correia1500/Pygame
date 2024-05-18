@@ -8,10 +8,13 @@ class Homeless(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.sprites = load_sprites_homeless()
         self.current_sprite = 0
+        self.animation_counter = 0
+        
         self.image = self.sprites[self.current_sprite]
         self.rect = self.image.get_rect()
         self.rect.centerx = WIDTH / 2
         self.rect.bottom = HEIGHT - 100
+
         self.speedx = 0
         self.speedy = 0
         self.on_ground = True
@@ -19,18 +22,17 @@ class Homeless(pygame.sprite.Sprite):
         self.all_beers = all_beers
         self.beer_img = beer_img
         self.pew_sound = pew_sound
-        self.animation_speed = 0.2
+        #self.animation_speed = 0
         self.pulando = False
-
-    def animate(self):
-        self.current_sprite = self.animation_speed
-        if self.current_sprite >= len(self.sprites):
-            self.current_sprite = 0
-        self.image = self.sprites[int(self.current_sprite)]
-#adicior pulando aqui            
-
     
     def update(self):
+
+        self.animation_counter += 1
+        if self.animation_counter >= 2:
+            self.current_sprite = (self.current_sprite + 1) % len(self.sprites)
+            self.image = self.sprites[self.current_sprite]
+            self.animation_counter = 0
+
         # Atualiza a posição do jogador
         self.rect.x += self.speedx
         
@@ -51,11 +53,11 @@ class Homeless(pygame.sprite.Sprite):
         if self.rect.left < 0: 
             self.rect.left = 0
 
-        self.animate()
-        
     def shoot(self):
         #cria um novo tiro, a partir da posição do jogador
-        new_beer = Bullet(self.beer_img, self.rect.top, self.rect.centerx)
+        bullet_bottom = self.rect.top + 40 
+        bullet_centerx = self.rect.centerx +15
+        new_beer = Bullet(self.beer_img, bullet_bottom, bullet_centerx)
         self.all_sprites.add(new_beer)
         self.all_beers.add(new_beer)
         self.pew_sound.play()

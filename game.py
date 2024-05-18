@@ -20,33 +20,13 @@ pygame.display.set_caption("Pygame")
 # ----- Inicia assets
 
 font = pygame.font.SysFont(None, 48)
-background_img = pygame.image.load("assets/img/starfield.png").convert()
+background_img = pygame.image.load("assets/img/background/postapocalypse1.png").convert()
+background_img = pygame.transform.scale(background_img, (WIDTH, HEIGHT))
 
 plataform_img = pygame.image.load("assets/img/plataforma.png").convert_alpha()
 plataform_img = pygame.transform.scale(plataform_img, (WIDTH, 100))
 
-#conglito------------------
-#homeless_img = pygame.image.load("assets/img/quadrado.png")
-#homeless_img = pygame.transform.scale(homeless_img, (HOMELESS_WIDTH, HOMELESS_HEIGHT))
-#=======
-
-# tela de abertura
-#font = pygame.font.SysFont(None, 50)
-#conteudo2 = "Zombie Run Press the space key to start."
-#t3 = font.render(conteudo2[:11], True, (0, 0, 230))
-#t4 = font.render(conteudo2[11:], True, (0, 0, 230))
-
-#window.fill((200, 150, 100))
-#window.blit(t3,(500,400))
-#window.blit(t4,(300,400))
-## ----- Inicia estruturas de dados
-# Definindo os novos tipos
-#--------------------------
-
-zombie_img = pygame.image.load("assets/img/meteorBrown_med1.png").convert_alpha()
-zombie_img = pygame.transform.scale(zombie_img, (ZOMBIE_WIDTH, ZOMBIE_HEIGHT))
-
-beer_img = pygame.image.load("assets/img/laserRed16.png").convert_alpha()
+beer_img = pygame.image.load("assets/img/beer.png").convert_alpha()
 beer_img = pygame.transform.scale(beer_img, (20, 20))
 
 # Carrega os sons do jogo
@@ -74,15 +54,18 @@ sprites = load_sprites_homeless()
 # Criando os zumbies
 
 for i in range(10):
-    z = Zombie(zombie_img)
+    z = Zombie()
     all_sprites.add(z)
     all_zombies.add(z)
 
 
 # ===== Loop principal =====
+
 player = Homeless(all_sprites, all_beers, beer_img, pew_sound)
 all_sprites.add(player)
+
 pygame.mixer.music.play(loops=-1) #inicia a musica de fundo
+
 while game:
     clock.tick(FPS)
 
@@ -90,7 +73,6 @@ while game:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game = False
-
 
         #Verifica se apertou alguma tecla
         if event.type ==pygame.KEYDOWN:
@@ -118,36 +100,6 @@ while game:
     #atualiza a posição do jogador
     all_sprites.update()
 
-    #verifica se houve colisão entre o jogador e o obstaculo
-#     colisao = pygame.sprite.spritecollide(all_zombies, all_beers, True, True)
-#     if len(colisao) > 0:
-#         # Toca o som da colisão
-#         collide_sound.play()
-#         colisao==0
-
-# colisao2 = pygame.sprite.spritecollide(player, all_zombies, True)
-# if len(colisao2) > 0:
-#     # Toca o som da colisão
-#     collide_sound.play()
-#     time.sleep(1) # Precisa esperar senão fecha
-
-#    game = False
-
-    # for zumbie in obstaculo: 
-    #     z = Zumbie(zumbie_img)
-    #     all_sprites.add(z)
-    #     all_zumbies.add(z)
-        
-
-    # if len(colisao) > 0:
-    #     # Toca o som da colisão
-    #     collide_sound.play()
-    #     time.sleep(1) # Precisa esperar senão fecha o jogo
-
-    #     game = False
-        
-        
-
     #gera saidas
     window.fill((255, 255, 255)) #Preenche a tela com a cor branca
     window.blit(plataform_img, (0, 500))
@@ -155,15 +107,6 @@ while game:
 
     #atualiza a tela
     pygame.display.update()
-
-    #quando vc perder
-    window.fill((0, 0, 0))
-    #window.blit(t1,(500,400))
-    #window.blit(t2,(300,400))
-
-
-
-
 
 #Finaliza o pygame
 pygame.quit()
