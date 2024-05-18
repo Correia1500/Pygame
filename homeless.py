@@ -24,6 +24,9 @@ class Homeless(pygame.sprite.Sprite):
         self.pew_sound = pew_sound
         #self.animation_speed = 0
         self.pulando = False
+        #cadencia de tiro
+        self.last_shot = pygame.time.get_ticks()
+        self.shoot_delay = 500 #milisegundos
     
     def update(self):
 
@@ -54,6 +57,9 @@ class Homeless(pygame.sprite.Sprite):
             self.rect.left = 0
 
     def shoot(self):
+        now = pygame.time.get_ticks()
+        if now - self.last_shot > self.shoot_delay:
+            self.last_shot = now
         #cria um novo tiro, a partir da posição do jogador
         bullet_bottom = self.rect.top + 40 
         bullet_centerx = self.rect.centerx +15

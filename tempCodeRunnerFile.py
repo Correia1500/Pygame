@@ -78,42 +78,47 @@ while game:
 
         #Verifica se apertou alguma tecla
         #if event.type ==pygame.KEYDOWN:
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_LEFT]:
-        player.speedx = -8
-    if keys[pygame.K_RIGHT]:
-        player.speedx = 8
-    if not (keys[pygame.K_LEFT] or keys[pygame.K_RIGHT]):
-        player.speedx = 0
-    if keys[pygame.K_SPACE] and player.on_ground:
-        player.speedy = -20
-        player.on_ground = False
-    if keys[pygame.K_a]:
-        player.shoot()
-    #Atualiza estado do jogo
-    all_sprites.update()
-    # Mantém o jogador centralizado na tela ao andar para a direita 
-    if player.rect.centerx > WIDTH // 2 and player.speedx > 0:
-        background_x -= player.speedx
-        player.rect.centerx = WIDTH // 2
-    # Mantém o jogador centralizado na tela ao andar para a esquerda
-    if player.rect.centerx < WIDTH // 2 and player.speedx < 0:
-        background_x -= player.speedx
-        player.rect.centerx = WIDTH // 2
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+            player.speedx = -8
+        if keys[pygame.K_RIGHT]:
+            player.speedx = 8
+        if not (keys[pygame.K_LEFT] or keys[pygame.K_RIGHT]):
+            player.speedx = 0
+        if keys[pygame.K_SPACE] and player.on_ground:
+            player.speedy = -20
+            player.on_ground = False
+        if keys[pygame.K_a]:
+            player.shoot()
 
-    # Verifica colisões
-    for bullet in all_beers:
-        hits = pygame.sprite.spritecollide(bullet, all_zombies, True)
-        for hit in hits:
-            bullet.kill()
-            z = Zombie()
-            all_sprites.add(z)
-            all_zombies.add(z)
+        # verifica se soltou alguma tecla
+        if event.type == pygame.KEYUP:
+            # Dependendo da tecla, altera a velocidade
+            if event.key in (pygame.K_LEFT, pygame.K_RIGHT):
+                player.speedx = 0
+        all_sprites.update()
+        # Mantém o jogador centralizado na tela ao andar para a direita 
+        if player.rect.centerx > WIDTH // 2 and player.speedx > 0:
+            background_x -= player.speedx
+            player.rect.centerx = WIDTH // 2
+        # Mantém o jogador centralizado na tela ao andar para a esquerda
+        if player.rect.centerx < WIDTH // 2 and player.speedx < 0:
+            background_x -= player.speedx
+            player.rect.centerx = WIDTH // 2
+
+        # Verifica colisões
+        for bullet in all_beers:
+            hits = pygame.sprite.spritecollide(bullet, all_zombies, True)
+            for hit in hits:
+                bullet.kill()
+                z = Zombie()
+                all_sprites.add(z)
+                all_zombies.add(z)
         
-    hits = pygame.sprite.spritecollide(player, all_zombies, False) 
-    if hits:
-        game = False
-        print("Game Over")
+        hits = pygame.sprite.spritecollide(player, all_zombies, False) 
+        if hits:
+            game = False
+            print("Game Over")
     
     #gera saidas
     window.fill((255, 255, 255)) #Preenche a tela com a cor branca
@@ -127,7 +132,8 @@ while game:
     elif background_x >= 0:
         background_x = -WIDTH
 
-    window.blit(plataform_img, (0, HEIGHT - 100))    
+    window.blit(plataform_img, (0, HEIGHT - 100))
+    
     all_sprites.draw(window)  #Desenha o jogador na tela
 
     #atualiza a tela
