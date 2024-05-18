@@ -92,26 +92,35 @@ while game:
         # verifica se soltou alguma tecla
         if event.type == pygame.KEYUP:
             # Dependendo da tecla, altera a velocidade
-            if event.key == pygame.K_LEFT:
-                player.speedx += 8
-            if event.key == pygame.K_RIGHT:
-                player.speedx -= 8 
+            if event.key in (pygame.K_LEFT, pygame.K_RIGHT):
+                player.speedx = 0
 
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_LEFT]:
-        player.speedx = -8
-    if keys[pygame.K_RIGHT]:
-        player.speedx = 8
-    #atualiza estado do jogo
-    if player.rect.right >= WIDTH - 200:
-        background_x -= player.speedx
-    #atualiza a posição do jogador
+    #atualiza a posição do jogador e do fundo
     all_sprites.update()
+    # Mantém o jogador centralizado na tela ao andar para a direita 
+    if player.rect.centerx > WIDTH // 2 and player.speedx > 0:
+        background_x -= player.speedx
+        player.rect.centerx = WIDTH // 2
+    # Mantém o jogador centralizado na tela ao andar para a esquerda
+    if player.rect.centerx < WIDTH // 2 and player.speedx < 0:
+        background_x -= player.speedx
+        player.rect.centerx = WIDTH // 2
+    
 
     #gera saidas
     window.fill((255, 255, 255)) #Preenche a tela com a cor branca
-    window.blit(plataform_img, (background_x, 500))
-    #window.blit(plataform_img, (0, 500))
+
+    #Desenha o fundo e as plataformas
+    window.blit(background_img, (background_x, 0))
+    window.blit(background_img, (background_x + WIDTH, 0))
+    
+    if background_x <= -WIDTH:
+        background_x = 0
+    elif background_x >= 0:
+        background_x = -WIDTH
+
+    window.blit(plataform_img, (0, HEIGHT - 100))
+    
     all_sprites.draw(window)  #Desenha o jogador na tela
 
     #atualiza a tela
