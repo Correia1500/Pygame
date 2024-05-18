@@ -66,6 +66,8 @@ all_sprites.add(player)
 
 pygame.mixer.music.play(loops=-1) #inicia a musica de fundo
 
+background_x = 0
+
 while game:
     clock.tick(FPS)
 
@@ -95,14 +97,21 @@ while game:
             if event.key == pygame.K_RIGHT:
                 player.speedx -= 8 
 
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]:
+        player.speedx = -8
+    if keys[pygame.K_RIGHT]:
+        player.speedx = 8
     #atualiza estado do jogo
-
+    if player.rect.right >= WIDTH - 200:
+        background_x -= player.speedx
     #atualiza a posição do jogador
     all_sprites.update()
 
     #gera saidas
     window.fill((255, 255, 255)) #Preenche a tela com a cor branca
-    window.blit(plataform_img, (0, 500))
+    window.blit(plataform_img, (background_x, 500))
+    #window.blit(plataform_img, (0, 500))
     all_sprites.draw(window)  #Desenha o jogador na tela
 
     #atualiza a tela
