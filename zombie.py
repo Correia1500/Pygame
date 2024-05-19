@@ -44,7 +44,7 @@ class Zombie(pygame.sprite.Sprite):
         if self.rect.right < 0:
             self.rect.left = WIDTH
             self.rect.x = random.randint(0, WIDTH - ZOMBIE_WIDTH)
-            self.speedx = random.randint(3, 8)
+            self.speedx = random.randint(1, 3)
         # Lógica para pular
 
         self.jump_counter += 1
