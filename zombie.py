@@ -19,6 +19,11 @@ class Zombie(pygame.sprite.Sprite):
         self.rect.x = (0)
         self.rect.y = HEIGHT - 195
         
+        # Variáveis para controle de salto
+        self.jump_time = random.randint(0, 300)  # Tempo aleatório para o próximo pulo
+        self.jump_counter = 0
+        self.jump_height = random.randint(-20, -10)  # Altura do pulo
+
         self.speedx = random.randint(3, 8)
         self.on_ground = False
         self.speedy = 0
@@ -40,11 +45,19 @@ class Zombie(pygame.sprite.Sprite):
             self.rect.left = WIDTH
             self.rect.x = random.randint(0, WIDTH - ZOMBIE_WIDTH)
             self.speedx = random.randint(3, 8)
+        # Lógica para pular
 
+        self.jump_counter += 1
+        if self.jump_counter >= self.jump_time and self.on_ground:
+            self.speedy = self.jump_height
+            self.on_ground = False
+            self.jump_counter = 0
+            self.jump_time = random.randint(100, 300) # Define um novo tempo aleatório para o próximo pulo
+        # Atualiza a posicao vertical do zombie
         if not self.on_ground:
             self.speedy += 1
         self.rect.y += self.speedy
-
+        # Verifica se o zombie esta no chão
         if self.rect.bottom >= HEIGHT - 100:
             self.rect.bottom = HEIGHT - 100
             self.on_ground = True

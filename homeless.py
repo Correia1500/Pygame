@@ -22,8 +22,7 @@ class Homeless(pygame.sprite.Sprite):
         self.all_beers = all_beers
         self.beer_img = beer_img
         self.pew_sound = pew_sound
-        #self.animation_speed = 0
-        self.pulando = False
+        #self.pulando = False
         #cadencia de tiro
         self.last_shot = pygame.time.get_ticks()
         self.shoot_delay = 500 #milisegundos

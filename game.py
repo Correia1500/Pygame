@@ -35,9 +35,7 @@ pygame.mixer.music.set_volume(0.4)
 pew_sound = pygame.mixer.Sound("assets/snd/pew.wav") #som do tiro
 collide_sound = pygame.mixer.Sound("assets/snd/expl6.wav") #som da colisão
 
-
 ## ----- Inicia estruturas de dados
-
 
 game = True
 #conflito------------
@@ -58,13 +56,12 @@ for i in range(10):
     all_sprites.add(z)
     all_zombies.add(z)
 
-
 # ===== Loop principal =====
 
 player = Homeless(all_sprites, all_beers, beer_img, pew_sound)
 all_sprites.add(player)
 
-pygame.mixer.music.play(loops=-1) #inicia a musica de fundo
+pygame.mixer.music.play(-1) #inicia a musica de fundo
 
 background_x = 0
 
@@ -75,7 +72,10 @@ while game:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game = False
-
+        if game == True:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_a:
+                    player.shoot()
         #Verifica se apertou alguma tecla
         #if event.type ==pygame.KEYDOWN:
     keys = pygame.key.get_pressed()
@@ -88,8 +88,8 @@ while game:
     if keys[pygame.K_SPACE] and player.on_ground:
         player.speedy = -20
         player.on_ground = False
-    if keys[pygame.K_a]:
-        player.shoot()
+    
+    
     #Atualiza estado do jogo
     all_sprites.update()
     # Mantém o jogador centralizado na tela ao andar para a direita 
