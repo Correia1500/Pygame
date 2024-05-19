@@ -36,10 +36,10 @@ class Bat(pygame.sprite.Sprite):
         
         if self.rect.left > WIDTH:
             self.rect.right = 0
-            self.rect.y = random.randint(50, HEIGHT // 2)
+            self.rect.y = random.randint(100, 400)
             self.speedx = random.randint(5, 10)
             self.speedy = random.randint(-2, 2)
             
         # Mantém o morcego dentro dos limites verticais
-        if self.rect.top < 0 or self.rect.bottom > HEIGHT // 2:
+        if self.rect.top < 0 or self.rect.bottom > HEIGHT // 8:
             self.speedy = -self.speedy

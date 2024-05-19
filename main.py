@@ -6,8 +6,6 @@ from config import *
 from init_screen import *
 from game_screen import *
 
-
-
 pygame.init()
 pygame.mixer.init()
 

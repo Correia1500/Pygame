@@ -64,7 +64,7 @@ def game_screen(window):
     
     background_x = 0 #para animacao do fundo
 
-    while state != QUIT:
+    while state != DONE:
         clock.tick(FPS)
 
         # ----- Trata eventos
@@ -77,9 +77,9 @@ def game_screen(window):
                 # Verifica se apertou alguma tecla.
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_LEFT:
-                        player.speedx -= 8
+                        player.speedx = - 8
                     if event.key == pygame.K_RIGHT:
-                        player.speedx += 8
+                        player.speedx = 8
                     if event.key == pygame.K_SPACE and player.on_ground:
                         player.speedy= -20
                         player.on_ground = False
@@ -88,9 +88,9 @@ def game_screen(window):
                 if event.type == pygame.KEYUP:
                     if event.key in keys_down and keys_down[event.key]:
                         if event.key == pygame.K_LEFT:
-                            player.speedx -= 8
+                            player.speedx = -8
                         if event.key == pygame.K_RIGHT:
-                            player.speedx += 8
+                            player.speedx = +8
                         if event.key[pygame.K_SPACE] and player.on_ground:
                             player.speedy = -20
                             player.on_ground = False
@@ -119,7 +119,7 @@ def game_screen(window):
                 
             hits = pygame.sprite.spritecollide(player, all_zombies, False) 
             if hits:
-                game = False
+                state = DONE
                 print("Game Over")
         
         #gera saidas
@@ -147,4 +147,3 @@ def game_screen(window):
 
     #Finaliza o pygame
     pygame.quit()
-    sys.exit()
