@@ -1,10 +1,4 @@
-<img align="right" width="33%" style="margin-bottom: 2em" src="https://owlbertsio-resized.s3.amazonaws.com/Popper.psd.full.png">
-
-# Hi, Welcome Zombie Run! :wave:
-
-
-
-# Zombie Run
+# Zombie Run :beer:
 
 ![Zombie Run](assets/img/zombie-run.png)
 
