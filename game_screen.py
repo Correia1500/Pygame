@@ -41,12 +41,12 @@ def game_screen(window):
     player = Homeless(all_sprites, all_beers, beer_img, pew_sound)
     all_sprites.add(player)
     # Criando os zumbies
-    for i in range(10):
+    for i in range(1):
         z = Zombie()
         all_sprites.add(z)
         all_zombies.add(z)
     # Criando os morcegos
-    for i in range(50):
+    for i in range(5):
         b = Bat()
         all_sprites.add(b)
         all_bats.add(b)
