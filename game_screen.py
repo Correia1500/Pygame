@@ -25,10 +25,10 @@ def game_screen(window):
     beer_img = pygame.transform.scale(beer_img, (20, 20))
 
     # Carrega os sons do jogo
-    pygame.mixer.music.load("assets/snd/tgfcoder-FrozenJam-SeamlessLoop.ogg") #musica de fundo
+    pygame.mixer.music.load("assets/snd/muvibeat8_130bpm.mp3") #musica de fundo
     pygame.mixer.music.set_volume(0.4)
-    pew_sound = pygame.mixer.Sound("assets/snd/pew.wav") #som do tiro
-    collide_sound = pygame.mixer.Sound("assets/snd/expl6.wav") #som da colisão
+    beer_sound = pygame.mixer.Sound("assets/snd/glass_clink.mp3") #som do tiro
+    collide_sound = pygame.mixer.Sound("assets/snd/glass_hit.mp3") #som da colisão
 
     # Criando um grupo de beers
     all_sprites = pygame.sprite.Group()
@@ -38,7 +38,7 @@ def game_screen(window):
 
     # Criando o jogador
     sprites = load_sprites_homeless()
-    player = Homeless(all_sprites, all_beers, beer_img, pew_sound)
+    player = Homeless(all_sprites, all_beers, beer_img, beer_sound)
     all_sprites.add(player)
     # Criando os zumbies
     for i in range(1):
