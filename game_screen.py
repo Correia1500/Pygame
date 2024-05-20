@@ -45,17 +45,11 @@ def game_screen(window):
     player = Homeless(all_sprites, all_beers, beer_img, pew_sound)
     all_sprites.add(player)
     # Criando os zumbies
-    for i in range(1):
+    for i in range(5):
         z = Zombie()
         all_sprites.add(z)
         all_zombies.add(z)
-    # Criando os morcegos
     
-    for i in range(5):
-
-        b = Bat()
-        all_sprites.add(b)
-        all_bats.add(b)
 
     DONE = 0
     PLAYING = 1
@@ -65,6 +59,7 @@ def game_screen(window):
     score = 0 #Pontuação do jogador
     lives = 3 #Vidas do jogador
     
+    
         # ===== Loop principal =====
     pygame.mixer.music.play(-1) #inicia a musica de fundo
     
@@ -72,6 +67,18 @@ def game_screen(window):
 
     while state != DONE:
         clock.tick(FPS)
+
+        if score ==5000:
+            # Criando os morcegos
+            if len(all_bats)<=0:
+    
+                for i in range(5):
+
+                    b = Bat()
+                    all_sprites.add(b)
+                    all_bats.add(b)
+                
+            
 
         # ----- Trata eventos
         for event in pygame.event.get():
@@ -194,7 +201,7 @@ def game_screen(window):
         all_sprites.draw(window)  #Desenha o jogador na tela
 
         #Desenhando o score
-        score_text = font.render(f'Score: {score}', True, (255, 255, 0))
+        score_text = font.render(f'Score: {score}', True, (255, 255, 255))
         window.blit(score_text, (WIDTH - score_text.get_width() - 10, 10))
         #Desenhando as vidas
         
