@@ -39,6 +39,7 @@ def game_screen(window):
     all_zombies = pygame.sprite.Group()
     all_bats = pygame.sprite.Group()
 
+
     # Criando o jogador
     sprites = load_sprites_homeless()
     player = Homeless(all_sprites, all_beers, beer_img, pew_sound)
@@ -49,6 +50,7 @@ def game_screen(window):
         all_sprites.add(z)
         all_zombies.add(z)
     # Criando os morcegos
+    
     for i in range(5):
         b = Bat()
         all_sprites.add(b)
