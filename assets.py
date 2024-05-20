@@ -1,4 +1,7 @@
 import pygame
+from assets import *
+from os import path
+import os
 
 # Definindo os novos tipos
 def load_sprites_homeless():
