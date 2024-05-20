@@ -41,7 +41,7 @@ def game_screen(window):
     player = Homeless(all_sprites, all_beers, beer_img, pew_sound)
     all_sprites.add(player)
     # Criando os zumbies
-    for i in range(10):
+    for i in range(1):
         z = Zombie()
         all_sprites.add(z)
         all_zombies.add(z)
@@ -56,8 +56,8 @@ def game_screen(window):
     state = PLAYING
 
     keys_down={}
-    score = 0
-    lives = 3
+    score = 0 #Pontuação do jogador
+    lives = 3 #Vidas do jogador
     
         # ===== Loop principal =====
     pygame.mixer.music.play(-1) #inicia a musica de fundo
@@ -86,41 +86,83 @@ def game_screen(window):
                     if event.key == pygame.K_a:
                         player.shoot()
                 if event.type == pygame.KEYUP:
-                    if event.key in keys_down and keys_down[event.key]:
-                        if event.key == pygame.K_LEFT:
-                            player.speedx = -8
-                        if event.key == pygame.K_RIGHT:
-                            player.speedx = +8
-                        if event.key[pygame.K_SPACE] and player.on_ground:
-                            player.speedy = -20
-                            player.on_ground = False
+                    if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                        player.speedx = 0
 
         #Atualiza estado do jogo
         all_sprites.update()
 
         if state == PLAYING:
-            # Mantém o jogador centralizado na tela ao andar para a direita 
-            if player.rect.centerx > WIDTH // 2 and player.speedx > 0:
+            # Ajustar a lógica de movimento
+            if 100 < player.rect.centerx < 700:
+                player.speedx = player.speedx
+            elif player.rect.centerx >= 700:
                 background_x -= player.speedx
-                player.rect.centerx = WIDTH // 2
-            # Mantém o jogador centralizado na tela ao andar para a esquerda
-            if player.rect.centerx < WIDTH // 2 and player.speedx < 0:
-                background_x -= player.speedx
-                player.rect.centerx = WIDTH // 2
+            elif player.rect.centerx <= 100:
+                background_x += player.speedx
+            
+            # Ajustar a velocidade dos inimigos com base no movimento do jogador
+            if player.speedx == 0:
+                enemy_speed_multiplier = 1
+            elif player.speedx > 0:
+                enemy_speed_multiplier = 0.25
+            else:
+                enemy_speed_multiplier = 0.25
+            
+            for zombie in all_zombies:
+                zombie.rect.x += zombie.speedx * enemy_speed_multiplier
+                if zombie.rect.right < 0:
+                    zombie.rect.left = WIDTH
+            
+            for bat in all_bats:
+                bat.rect.x += bat.speedx * enemy_speed_multiplier
+                if bat.rect.right < 0:
+                    bat.rect.left = WIDTH
+            
 
-            # Verifica colisões
+            # Verifica colisões dos tiros com os zumbis
             for bullet in all_beers:
                 hits = pygame.sprite.spritecollide(bullet, all_zombies, True)
                 for hit in hits:
                     bullet.kill()
+                    score += 100 #Incrementar o score em 100
                     z = Zombie()
                     all_sprites.add(z)
                     all_zombies.add(z)
-                
+
+            # Verifica colisões dos tiros com os morcegos
+            for bullet in all_beers:
+                hits = pygame.sprite.spritecollide(bullet, all_bats, True)
+                for hit in hits:
+                    bullet.kill()
+                    score += 100 #Incrementar o score em 10
+                    b = Bat()
+                    all_sprites.add(b)
+                    all_bats.add(b)
+
+            #Verifica colisão do jogador com os zumbis   
             hits = pygame.sprite.spritecollide(player, all_zombies, False) 
             if hits:
-                state = DONE
-                print("Game Over")
+                collide_sound.play()
+                lives -= 1
+                if lives > 0:
+                    player.rect.x = 700
+                    player.rect.y = HEIGHT - 195
+                else:
+                    state = DONE
+                    print("Game Over")
+
+            #Verifica colisão do jogador com os morcegos
+            hits = pygame.sprite.spritecollide(player, all_bats, False)
+            if hits:
+                collide_sound.play()
+                lives -= 1
+                if lives > 0:
+                    player.rect.x = 700
+                    player.rect.y = HEIGHT - 195
+                else:
+                    state = DONE
+                    print("Game Over")
         
         #gera saidas
         window.fill((255, 255, 255)) #Preenche a tela com a cor branca
@@ -139,11 +181,13 @@ def game_screen(window):
         all_sprites.draw(window)  #Desenha o jogador na tela
 
         #Desenhando o score
-
+        score_text = font.render(f'Score: {score}', True, (255, 255, 0))
+        window.blit(score_text, (WIDTH - score_text.get_width() - 10, 10))
         #Desenhando as vidas
-
+        lives_text = font.render(f'Lives: {lives}', True, (255, 255, 0))
+        window.blit(lives_text, (10, 10))
         #atualiza a tela
         pygame.display.update() # Mostra o novo frame para o jogador
-
+    return QUIT
     #Finaliza o pygame
     pygame.quit()
