@@ -17,7 +17,7 @@ class Bat(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
         self.rect.x = random.randint(5,10)
-        self.rect.y = random.randint(-2,2) #velocidade vertical variável
+        self.rect.y = random.randint(50,HEIGHT // 6) #velocidade vertical variável
         self.speedx = random.randint(5, 10)
         self.speedy = random.randint(-2, 2)
     def update(self):
