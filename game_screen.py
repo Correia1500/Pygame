@@ -24,6 +24,9 @@ def game_screen(window):
     beer_img = pygame.image.load("assets/img/beer.png").convert_alpha()
     beer_img = pygame.transform.scale(beer_img, (20, 20))
 
+    lives_img=pygame.image.load("assets/img/coracao.png")
+    lives_img = pygame.transform.scale(lives_img, (50, 50))
+
     # Carrega os sons do jogo
     pygame.mixer.music.load("assets/snd/tgfcoder-FrozenJam-SeamlessLoop.ogg") #musica de fundo
     pygame.mixer.music.set_volume(0.4)
@@ -170,6 +173,18 @@ def game_screen(window):
         #Desenha o fundo e as plataformas
         window.blit(background_img, (background_x, 0))
         window.blit(background_img, (background_x + WIDTH, 0))
+        if lives==3:
+            window.blit(lives_img, (10, 10))
+            window.blit(lives_img, (30, 10))
+            window.blit(lives_img, (50, 10))
+        elif lives ==2:
+            window.blit(lives_img, (10, 10))
+            window.blit(lives_img, (30, 10))
+        elif lives ==1:
+            window.blit(lives_img, (10, 10))
+
+
+
         
         
         if background_x <= -WIDTH:
@@ -184,8 +199,11 @@ def game_screen(window):
         score_text = font.render(f'Score: {score}', True, (255, 255, 0))
         window.blit(score_text, (WIDTH - score_text.get_width() - 10, 10))
         #Desenhando as vidas
-        lives_text = font.render(f'Lives: {lives}', True, (255, 255, 0))
-        window.blit(lives_text, (10, 10))
+        
+
+        
+        
+
         #atualiza a tela
         pygame.display.update() # Mostra o novo frame para o jogador
     return QUIT
