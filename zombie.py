@@ -41,10 +41,13 @@ class Zombie(pygame.sprite.Sprite):
         # Se o zombie passar do final da tela, volta para cima e sorteia uma nova posição
         # novas posições e velocidades
 
-        if self.rect.right < 0:
-            self.rect.left = WIDTH
-            self.rect.x = random.randint(0, WIDTH - ZOMBIE_WIDTH)
-            self.speedx = random.randint(1, 3)
+        if self.rect.right > WIDTH:
+            # self.rect.left = WIDTH
+            # self.rect.x = random.randint(0, WIDTH - ZOMBIE_WIDTH)
+            # self.speedx = random.randint(1, 3)
+            self.rect.x = (0)
+            self.rect.y = HEIGHT - 100
+            
         # Lógica para pular
 
         self.jump_counter += 1
