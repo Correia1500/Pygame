@@ -29,7 +29,7 @@ def game_screen(window):
     pygame.mixer.music.set_volume(0.4)
     beer_sound = pygame.mixer.Sound("assets/snd/glass_clink.mp3") #som do tiro
     collide_sound = pygame.mixer.Sound("assets/snd/glass_hit.mp3") #som da colisão
-
+    jump_sound = pygame.mixer.Sound("assets/snd/jump.mp3")
     # Criando um grupo de beers
     all_sprites = pygame.sprite.Group()
     all_beers = pygame.sprite.Group()
@@ -83,6 +83,7 @@ def game_screen(window):
                     if event.key == pygame.K_SPACE and player.on_ground:
                         player.speedy= -20
                         player.on_ground = False
+                        jump_sound.play()
                     if event.key == pygame.K_a:
                         player.shoot()
                 if event.type == pygame.KEYUP:
