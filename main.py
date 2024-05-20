@@ -14,7 +14,7 @@ window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Pygame')
 
 state = INIT
-while state != QUIT:
+while state !=QUIT:
     if state == INIT:
         state = init_screen(window)
     elif state == GAME:
@@ -27,8 +27,8 @@ while state != QUIT:
                 archive.write(str(score))
                 
         
-    else:
-        state = QUIT
+if state == QUIT:
+    state=end_screen(window)
 
 # ===== Finalização =====
 pygame.quit()  # Função do PyGame que finaliza os recursos utilizados

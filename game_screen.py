@@ -211,6 +211,9 @@ def game_screen(window):
 
         #atualiza a tela
         pygame.display.update() # Mostra o novo frame para o jogador
-    return QUIT, score
+
+        
+    return QUIT, score 
+
     #Finaliza o pygame
     pygame.quit()
