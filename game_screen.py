@@ -146,29 +146,24 @@ def game_screen(window):
                     all_bats.add(b)
 
             #Verifica colisão do jogador com os zumbis   
-            hits = pygame.sprite.spritecollide(player, all_zombies, False) 
+            hits = pygame.sprite.spritecollide(player, all_zombies, True) 
             if hits:
                 collide_sound.play()
                 lives -= 1
-                if lives > 0:
-                    player.rect.x = 700
-                    player.rect.y = HEIGHT - 195
-                else:
+                if lives<=0:
                     state = DONE
                     print("Game Over")
 
+
             #Verifica colisão do jogador com os morcegos
-            hits = pygame.sprite.spritecollide(player, all_bats, False)
+            hits = pygame.sprite.spritecollide(player, all_bats, True)
             if hits:
                 collide_sound.play()
                 lives -= 1
-                if lives > 0:
-                    player.rect.x = 700
-                    player.rect.y = HEIGHT - 195
-                else:
+                if lives<=0:
                     state = DONE
                     print("Game Over")
-        
+      
         #gera saidas
         window.fill((255, 255, 255)) #Preenche a tela com a cor branca
 
