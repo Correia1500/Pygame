@@ -51,6 +51,13 @@ def end_screen(window):
     running = True
     state = INIT
 
+    font = pygame.font.SysFont(None, 48)
+    with open('score.txt', 'r') as archive:
+            record = int(archive.read())
+    text= record
+    text = font.render(f'maior record:{record} ', True, (255, 0, 0))
+
+
     while running:
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
@@ -67,6 +74,7 @@ def end_screen(window):
         # A cada loop, redesenha o fundo e os sprites
         window.fill(BLACK)
         window.blit(background, background_rect)
+        window.blit(text, (250, 100))
 
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
