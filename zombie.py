@@ -2,7 +2,7 @@ import pygame
 import random
 from assets import *
 from bullet import Bullet
-from assets import load_sprites_homeless
+from assets import *
 from config import *
 
 class Zombie(pygame.sprite.Sprite):
