@@ -9,9 +9,15 @@ def init_screen(window):
     clock = pygame.time.Clock()
 
     # Carrega o fundo da tela inicial
-    tela_inicial = pygame.image.load(path.join('assets/img', 'inicio.jpg')).convert()
-    tela_inicial= pygame.transform.scale(tela_inicial, (WIDTH, HEIGHT))
-    tela_inicial_rect = tela_inicial.get_rect()
+    background = pygame.image.load(path.join('assets/img/inicio.jpg')).convert()
+    background = pygame.transform.scale(background, (WIDTH, HEIGHT))
+    background_rect = background.get_rect()
+
+    # Carrega o título e o botão
+    font = pygame.font.SysFont(None, 74)
+    small_font = pygame.font.SysFont(None, 48)
+    title_text = font.render("ZOMBIE RUN", True, (255, 0, 0))
+    start_button_text = small_font.render("Press any key to start", True, (255, 255, 255))
 
     running = True
     state = INIT
@@ -31,37 +37,15 @@ def init_screen(window):
 
         # A cada loop, redesenha o fundo e os sprites
         window.fill(BLACK)
-        window.blit(tela_inicial, tela_inicial_rect)
+        window.blit(background, background_rect)
+        window.blit(title_text, (WIDTH // 2 - title_text.get_width() // 2, HEIGHT // 4))
+        window.blit(start_button_text, (WIDTH // 2 - start_button_text.get_width() // 2, HEIGHT // 2))
 
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
     return state
 
-# tela final
-def end_screen(window):
-    # Variável para o ajuste de velocidade
-    clock = pygame.time.Clock()
 
-    # Carrega o fundo da tela inicial
-    t_final = pygame.image.load(path.join('assets/img', 'game_over.jpg')).convert()
-    t_final= pygame.transform.scale(t_final, (WIDTH, HEIGHT))
-    final_rect = t_final.get_rect()
-
-    running = True
-    state = INIT
-
-    while running:
-        # Ajusta a velocidade do jogo.
-        clock.tick(FPS)
-
-        # Processamento de eventos(mouse, teclado, botão, etc ).
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                state = QUIT
-                running = False
-            if event.type == pygame.KEYUP:
-                state = GAME
-                running = False
 
         
 
