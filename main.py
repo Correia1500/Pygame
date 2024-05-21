@@ -19,16 +19,9 @@ while state !=QUIT:
         state = init_screen(window)
     elif state == GAME:
         state, score = game_screen(window)
-        with open('score.txt', 'r') as archive:
-            record = int(archive.read())
-            print(record)
-        if record < score:
-            with open('score.txt', 'w') as archive:
-                archive.write(str(score))
-                
         
-if state == QUIT:
-    state=end_screen(window)
+                
+                        
 
 # ===== Finalização =====
 pygame.quit()  # Função do PyGame que finaliza os recursos utilizados
