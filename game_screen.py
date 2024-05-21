@@ -24,32 +24,32 @@ def game_screen(window):
     beer_img = pygame.image.load("assets/img/beer.png").convert_alpha()
     beer_img = pygame.transform.scale(beer_img, (20, 20))
 
-    lives_img=pygame.image.load("assets/img/coracao.png")
-    lives_img = pygame.transform.scale(lives_img, (50, 50))
-
     # Carrega os sons do jogo
-    pygame.mixer.music.load("assets/snd/tgfcoder-FrozenJam-SeamlessLoop.ogg") #musica de fundo
+    pygame.mixer.music.load("assets/snd/muvibeat8_130bpm.mp3") #musica de fundo
     pygame.mixer.music.set_volume(0.4)
-    pew_sound = pygame.mixer.Sound("assets/snd/pew.wav") #som do tiro
-    collide_sound = pygame.mixer.Sound("assets/snd/expl6.wav") #som da colisão
-
+    beer_sound = pygame.mixer.Sound("assets/snd/glass_clink.mp3") #som do tiro
+    collide_sound = pygame.mixer.Sound("assets/snd/glass_hit.mp3") #som da colisão
+    jump_sound = pygame.mixer.Sound("assets/snd/jump.mp3")
     # Criando um grupo de beers
     all_sprites = pygame.sprite.Group()
     all_beers = pygame.sprite.Group()
     all_zombies = pygame.sprite.Group()
     all_bats = pygame.sprite.Group()
 
-
     # Criando o jogador
     sprites = load_sprites_homeless()
-    player = Homeless(all_sprites, all_beers, beer_img, pew_sound)
+    player = Homeless(all_sprites, all_beers, beer_img, beer_sound)
     all_sprites.add(player)
     # Criando os zumbies
     for i in range(1):
         z = Zombie()
         all_sprites.add(z)
         all_zombies.add(z)
-    
+    # Criando os morcegos
+    for i in range(5):
+        b = Bat()
+        all_sprites.add(b)
+        all_bats.add(b)
 
     DONE = 0
     PLAYING = 1
@@ -59,7 +59,6 @@ def game_screen(window):
     score = 0 #Pontuação do jogador
     lives = 3 #Vidas do jogador
     
-    
         # ===== Loop principal =====
     pygame.mixer.music.play(-1) #inicia a musica de fundo
     
@@ -67,18 +66,6 @@ def game_screen(window):
 
     while state != DONE:
         clock.tick(FPS)
-
-        if score ==5000:
-            # Criando os morcegos
-            if len(all_bats)<=0:
-    
-                for i in range(5):
-
-                    b = Bat()
-                    all_sprites.add(b)
-                    all_bats.add(b)
-                
-            
 
         # ----- Trata eventos
         for event in pygame.event.get():
@@ -96,6 +83,7 @@ def game_screen(window):
                     if event.key == pygame.K_SPACE and player.on_ground:
                         player.speedy= -20
                         player.on_ground = False
+                        jump_sound.play()
                     if event.key == pygame.K_a:
                         player.shoot()
                 if event.type == pygame.KEYUP:
@@ -154,42 +142,35 @@ def game_screen(window):
                     all_bats.add(b)
 
             #Verifica colisão do jogador com os zumbis   
-            hits = pygame.sprite.spritecollide(player, all_zombies, True) 
+            hits = pygame.sprite.spritecollide(player, all_zombies, False) 
             if hits:
                 collide_sound.play()
                 lives -= 1
-                if lives<=0:
+                if lives > 0:
+                    player.rect.x = 700
+                    player.rect.y = HEIGHT - 195
+                else:
                     state = DONE
                     print("Game Over")
-
 
             #Verifica colisão do jogador com os morcegos
-            hits = pygame.sprite.spritecollide(player, all_bats, True)
+            hits = pygame.sprite.spritecollide(player, all_bats, False)
             if hits:
                 collide_sound.play()
                 lives -= 1
-                if lives<=0:
+                if lives > 0:
+                    player.rect.x = 700
+                    player.rect.y = HEIGHT - 195
+                else:
                     state = DONE
                     print("Game Over")
-      
+        
         #gera saidas
         window.fill((255, 255, 255)) #Preenche a tela com a cor branca
 
         #Desenha o fundo e as plataformas
         window.blit(background_img, (background_x, 0))
         window.blit(background_img, (background_x + WIDTH, 0))
-        if lives==3:
-            window.blit(lives_img, (10, 10))
-            window.blit(lives_img, (30, 10))
-            window.blit(lives_img, (50, 10))
-        elif lives ==2:
-            window.blit(lives_img, (10, 10))
-            window.blit(lives_img, (30, 10))
-        elif lives ==1:
-            window.blit(lives_img, (10, 10))
-
-
-
         
         
         if background_x <= -WIDTH:
@@ -201,19 +182,13 @@ def game_screen(window):
         all_sprites.draw(window)  #Desenha o jogador na tela
 
         #Desenhando o score
-        score_text = font.render(f'Score: {score}', True, (255, 255, 255))
+        score_text = font.render(f'Score: {score}', True, (255, 255, 0))
         window.blit(score_text, (WIDTH - score_text.get_width() - 10, 10))
         #Desenhando as vidas
-        
-
-        
-        
-
+        lives_text = font.render(f'Lives: {lives}', True, (255, 255, 0))
+        window.blit(lives_text, (10, 10))
         #atualiza a tela
         pygame.display.update() # Mostra o novo frame para o jogador
-
-        
-    return QUIT, score 
-
+    return QUIT
     #Finaliza o pygame
     pygame.quit()

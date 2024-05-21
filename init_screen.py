@@ -9,9 +9,8 @@ def init_screen(window):
     clock = pygame.time.Clock()
 
     # Carrega o fundo da tela inicial
-
-    tela_inicial = pygame.image.load(path.join('assets/img/inicio.jpg')).convert()
-    tela_inicial = pygame.transform.scale(tela_inicial, (WIDTH, HEIGHT))
+    tela_inicial = pygame.image.load(path.join('assets/img', 'inicio.jpg')).convert()
+    tela_inicial= pygame.transform.scale(tela_inicial, (WIDTH, HEIGHT))
     tela_inicial_rect = tela_inicial.get_rect()
 
     running = True
@@ -44,19 +43,12 @@ def end_screen(window):
     clock = pygame.time.Clock()
 
     # Carrega o fundo da tela inicial
-    background = pygame.image.load(path.join('assets/img/game_over.png')).convert()
-    background= pygame.transform.scale(background, (WIDTH, HEIGHT))
-    background_rect = background.get_rect()
+    t_final = pygame.image.load(path.join('assets/img', 'game_over.jpg')).convert()
+    t_final= pygame.transform.scale(t_final, (WIDTH, HEIGHT))
+    final_rect = t_final.get_rect()
 
     running = True
     state = INIT
-
-    font = pygame.font.SysFont(None, 48)
-    with open('score.txt', 'r') as archive:
-            record = int(archive.read())
-    text= record
-    text = font.render(f'maior record:{record} ', True, (255, 0, 0))
-
 
     while running:
         # Ajusta a velocidade do jogo.
@@ -71,11 +63,6 @@ def end_screen(window):
                 state = GAME
                 running = False
 
-        # A cada loop, redesenha o fundo e os sprites
-        window.fill(BLACK)
-        window.blit(background, background_rect)
-        window.blit(text, (250, 100))
+        
 
-        # Depois de desenhar tudo, inverte o display.
-        pygame.display.flip()
-    return state
+       
