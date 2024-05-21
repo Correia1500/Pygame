@@ -10,7 +10,7 @@ Armado com sua determinação bêbada e algumas garrafas de cerveja, Jack começ
 
 ## Créditos
 
-- **Desenvolvedores**: Gabriel Correia, Mariana Squillant, Felipe.
+- **Desenvolvedores**: Correia1500, MarianaSquillante, FelipeBSPereira.
 - **Arte**: Chat-GPT 
 - **Agradecimentos**: Agradecimentos especiais a [Fontes de Recursos Gratuitos] como Pexels, Unsplash, OpenGameArt, Pixabay, Freesound entre outros.
 
