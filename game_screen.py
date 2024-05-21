@@ -40,7 +40,7 @@ def game_screen(window):
     pygame.mixer.music.load("assets/snd/muvibeat8_130bpm.mp3")  # música de fundo
     pygame.mixer.music.set_volume(0.4)
     beer_sound = pygame.mixer.Sound("assets/snd/glass_clink.mp3")  # som do tiro
-    collide_sound = pygame.mixer.Sound("assets/snd/glass_clink.mp3")  # som da colisão
+    collide_sound = pygame.mixer.Sound("assets/snd/Zombie_colisao.mp3")  # som da colisão
     powerup_sound = pygame.mixer.Sound("assets/snd/glass_clink.mp3")  # som do powerup
 
     # Criando um grupo de beers
