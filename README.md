@@ -48,6 +48,8 @@ Armado com sua determinação bêbada e algumas garrafas de cerveja, Jack começ
     - Sobreviver o máximo de tempo possível e alcançar a maior pontuação.
 
 Divirta-se jogando Zombie Run!
+## Game Play: 
+    - **link:**https://youtu.be/d1mN_q51YJY
 
 ---
 
