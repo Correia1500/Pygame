@@ -14,7 +14,7 @@ def game_screen(window):
     # variavel para ajustar a velocidade do jogo
     clock = pygame.time.Clock()
 
-     # Carrega as imagens de fundo para o parallax
+    # Carrega as imagens de fundo para o parallax
     bg_imagens = []
     for i in range(1, 6):
         bg_image = pygame.image.load(f'assets/img/background/parallax/plx-{i}.png').convert_alpha()
@@ -71,9 +71,11 @@ def game_screen(window):
         all_sprites.add(powerup)
         all_powerups.add(powerup)
 
-     # Criando os zumbis iniciais
-    for i in range(3):
+    # Criando os zumbis iniciais
+    for i in range(10):
         create_zombie()
+    for i in range(10):
+        create_bat()
 
     DONE = 0
     PLAYING = 1
