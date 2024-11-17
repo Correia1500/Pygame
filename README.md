@@ -49,7 +49,7 @@ Armado com sua determinação bêbada e algumas garrafas de cerveja, Jack começ
 
 Divirta-se jogando Zombie Run!
 ## Game Play: 
-    - **link:**https://youtu.be/d1mN_q51YJY
+    - **link:** https://youtu.be/d1mN_q51YJY
 
 ---
 
